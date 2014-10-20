@@ -7,12 +7,12 @@ var pollForm = ge('pollForm'),
     titleInp = ge('titleInp');
 
 
-// HELPERS
+// Helpers
 function ge(id){ return document.getElementById(id); }
 function ce(type){ return document.createElement(type); }
 
 
-// List related
+// Auto add inputs to list when the last input registers a keydown event
 (function (){
   function onKeyDown(){
     last.onkeydown = null;
@@ -32,7 +32,9 @@ function ce(type){ return document.createElement(type); }
 }());
 
 
-// HTTP related
+// Adds listener to createBtn
+// When clicked send data which is pulled out of the 'form'
+// by the getDataString function
 (function (){
 
   function sendPoll(data){

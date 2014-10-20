@@ -30,7 +30,7 @@ var handlers = require('./lib/handlers');
 
 
 /**
- * Midleware
+ * Midleware stack
  */
 
 // Log requests if ENV === dev
