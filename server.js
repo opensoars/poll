@@ -45,11 +45,14 @@ app.use(express.static(__dirname + '/public'));
  * Request handlers
  */
 
+// Serves list of polls
+app.get('/polls', handlers.get_polls)
+
 // Serves an existing poll
-app.get('/poll/:id', handlers.get_poll);
+app.get('/polls/:id', handlers.get_polls_by_id);
 
 // Creates new poll
-app.post('/poll', handlers.post_poll);
+app.post('/polls', handlers.post_polls);
 
 
 

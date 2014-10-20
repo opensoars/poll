@@ -38,7 +38,7 @@ function ce(type){ return document.createElement(type); }
     console.log(data);
     var req = new XMLHttpRequest();
 
-    req.open('POST', '/poll', true);
+    req.open('POST', '/polls', true);
 
     req.onabort = function (){
       console.log('req.onabort');
