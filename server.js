@@ -55,7 +55,6 @@ app.get('/polls/:id', handlers.get_polls_by_id);
 app.post('/polls', handlers.post_polls);
 
 
-
-
+// Start listening
 app.listen(PORT);
 log('Listening at port: ' + PORT);
