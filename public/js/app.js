@@ -44,6 +44,10 @@ function ce(type){ return document.createElement(type); }
       console.log('req.onabort');
     };
 
+    req.onerror = function (){
+      console.log('req.onerror');
+    };
+
     req.onreadystatechange = function (){
       if(this.readyState === 4)
         console.log(this);
