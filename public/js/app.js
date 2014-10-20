@@ -6,6 +6,7 @@ var pollForm = ge('pollForm'),
     createBtn = ge('createBtn'),
     titleInp = ge('titleInp');
 
+
 // HELPERS
 function ge(id){ return document.getElementById(id); }
 function ce(type){ return document.createElement(type); }
