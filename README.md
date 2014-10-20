@@ -16,5 +16,12 @@ poll
 4. Poll away!
 
 
+### Tech used
+* Node.js
+* Ezlog
+* cls
+* Express
+* HTML5
+
 
 
