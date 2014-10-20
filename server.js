@@ -13,9 +13,9 @@ var methodHandlers = {
 
     switch(req.url){
       case '/':
-        if(ENV && ENV === 'dev')
-          res.end(fs.readFileSync('./public/index.html'));
-        else res.end(INDEX);
+        if(ENV === 'release') res.end(INDEX);
+        else if(ENV === 'dev') res.end(fs.readFileSync('./public/index.html'));
+        else res.end('No enviroment specified');
       break;
     }
   }
