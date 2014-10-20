@@ -6,7 +6,6 @@
   "version": "0.0.1",
 
   "scripts": {
-    "server": "node server.js",
     "test": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\" && npm run coveralls",
     "coveralls": "node node_modules/coveralls/bin/coveralls.js < coverage/lcov.info",
     "localTest": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\""
