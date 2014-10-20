@@ -1,0 +1,53 @@
+<h1>Strawpoll</h1>
+
+
+<div id='pollForm'>
+
+  <p><input type='text' id='title' placeholder='Title..'></p>
+
+  <ol id='optionList'>
+    <li> <input type='text'> </li>
+    <li> <input type='text'> </li>
+    <li> <input type='text'> </li>
+    <li> <input type='text'> </li>
+  </ol>
+
+  <p>
+    <input type='checkbox' id='multiCheck'>
+    <label for='multiCheck'>Allow multiple choices?<label>
+  </p>
+
+  <p>
+    <input type='checkbox' id='ipCheck'>
+    <label for='ipCheck'>Allow more than 1 vote from a single IP?<label>
+  </p>
+
+  <p><button id='createBtn'>Create Poll</button></p>
+
+</div> <!-- /pollForm -->
+
+<script>
+
+  var pollForm = document.getElementById('pollForm'),
+      optionList = document.getElementById('optionList'),
+      multiCheck = document.getElementById('multiCheck'),
+      ipCheck = document.getElementById('ipCheck'),
+      createBtn = document.getElementById('createBtn');
+
+  var last;
+
+
+  // Set class last to the last optionList child
+  function setLast(){
+    last = optionList.children[optionList.children.length-1].children[0];
+  }
+  setLast();
+
+  console.log(last);
+
+
+
+
+
+
+</script>
