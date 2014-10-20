@@ -9,7 +9,9 @@ poll
 
 
 ### Use
-`npm run server`
+1. `npm run server`
+2. Browse to `localhost:80`
+3. Poll away!
 
 
 
