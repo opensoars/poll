@@ -17,10 +17,10 @@ poll
 
 
 ### Tech used
-* Node.js
-* Ezlog
-* cls
-* Express
+* [Node.js](http://nodejs.org/)
+* [ezlog](https://github.com/opensoars/ezlog)
+* [cls](https://github.com/opensoars/cls)
+* [Express](http://expressjs.com/)
 * HTML5
 
 
