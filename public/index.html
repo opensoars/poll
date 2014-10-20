@@ -3,7 +3,7 @@
 
 <div id='pollForm'>
 
-  <p><input type='text' id='title' placeholder='Title..'></p>
+  <p><input type='text' id='titleInp' placeholder='Title..'></p>
 
   <ol id='optionList'>
     <li> <input type='text'> </li>
@@ -26,37 +26,4 @@
 
 </div> <!-- /pollForm -->
 
-<script>
-  // get element
-  function ge(id){ return document.getElementById(id); }
- 
-  // create element
-  function ce(type){ return document.createElement(type); }
-
-  var pollForm = document.getElementById('pollForm'),
-      optionList = document.getElementById('optionList'),
-      multiCheck = document.getElementById('multiCheck'),
-      ipCheck = document.getElementById('ipCheck'),
-      createBtn = document.getElementById('createBtn');
-
-
-  function onKeyDown(){
-    last.onkeydown = null;
-
-    var li = document.createElement('li'),
-        input = document.createElement('input');
-
-    li.appendChild(input);
-
-    input.onkeydown = onKeyDown;
-
-    optionList.appendChild(li);
-
-    last = input;
-  }
-
-  var last = optionList.children[optionList.children.length-1].children[0];
-  last.onkeydown = onKeyDown;
-
-
-</script>
+<script src='js/app.js'></script>
