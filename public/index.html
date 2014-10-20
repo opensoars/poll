@@ -1,31 +1,48 @@
-<h1>Strawpoll</h1>
+<!DOCTYPE html><html><head>
+  <title>Poll</title>
+
+</head><body>
+
+  <header>
+    <h1>Strawpoll</h1>
+  </header>
+
+  <section id='main'>
+    <div id='pollForm'>
+      <p><input type='text' id='titleInp' placeholder='Enter poll title..'></p>
+
+      <ol id='optionList'>
+        <li> <input type='text' placeholder='Enter poll option..'> </li>
+        <li> <input type='text' placeholder='Enter poll option..'> </li>
+      </ol>
+
+      <p>
+        <input type='checkbox' id='multiCheck'>
+        <label for='multiCheck'>Allow multiple choices?<label>
+      </p>
+
+      <p>
+        <input type='checkbox' id='ipCheck'>
+        <label for='ipCheck'>Allow more than 1 vote from a single IP?<label>
+      </p>
+
+      <p><button id='createBtn'>Create Poll</button></p>
+    </div> <!-- /#pollForm -->
+  </section> <!-- /#main -->
 
 
-<div id='pollForm'>
+  <section id='links'>
+    <a href='/polls'>List of polls</a>
+  </section>
 
-  <p><input type='text' id='titleInp' placeholder='Title..'></p>
 
-  <ol id='optionList'>
-    <li> <input type='text'> </li>
-    <li> <input type='text'> </li>
-    <li> <input type='text'> </li>
-    <li> <input type='text'> </li>
-  </ol>
+  <footer>
+    <a href='http://strawpoll.me'>Strawpoll.me</a>
+    rip by
+    <a href='http://opensoars.github.io'>Opensoars</a> (in a couple of hours).
+  </footer>
 
-  <p>
-    <input type='checkbox' id='multiCheck'>
-    <label for='multiCheck'>Allow multiple choices?<label>
-  </p>
+  <!-- JS -->
+  <script src='js/app.js'></script>
 
-  <p>
-    <input type='checkbox' id='ipCheck'>
-    <label for='ipCheck'>Allow more than 1 vote from a single IP?<label>
-  </p>
-
-  <p><button id='createBtn'>Create Poll</button></p>
-
-</div> <!-- /pollForm -->
-
-<a href='/polls'>/polls</a>
-
-<script src='js/app.js'></script>
+</body></html>
