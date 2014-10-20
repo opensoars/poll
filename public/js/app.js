@@ -11,6 +11,7 @@ function ge(id){ return document.getElementById(id); }
 function ce(type){ return document.createElement(type); }
 
 
+// List related
 (function (){
   function onKeyDown(){
     last.onkeydown = null;
@@ -30,40 +31,52 @@ function ce(type){ return document.createElement(type); }
 }());
 
 
+// HTTP related
+(function (){
 
+  function sendPoll(data){
+    console.log(data);
+    var req = new XMLHttpRequest();
 
-function sendPoll(data){
-  console.log(data);
-  var req = new XMLHttpRequest();
+    req.open('POST', '/poll', true);
 
-  req.open('POST', '/poll', true);
+    req.onabort = function (){
+      console.log('req.onabort');
+    };
 
-  req.onabort = function (){
+    req.onreadystatechange = function (){
+      if(this.readyState === 4)
+        console.log(this);
+    }
 
-  };
+    req.send(data);
 
-  req.onreadystatechange = function (){
-    if(this.readyState === 4)
-      console.log(this);
-    
   }
 
-  req.send(data);
+  function getDataString(){
+    return JSON.stringify({
+      title: titleInp.value,
 
-}
+      options: function (){
+        var optionsArr = [];
 
-function getData(){
-  return {
-    title: titleInp.value,
-    multi: multiCheck.checked,
-    ip: ipCheck.checked
+        for(var i=0; i<optionList.children.length; i+=1)
+          if(optionList.children[i].children[0].value !== '')
+            optionsArr.push(optionList.children[i].children[0].value);
+
+        return optionsArr;
+      }(),
+
+      multi: multiCheck.checked,
+      ip: ipCheck.checked
+    });
   }
-}
 
-function onCreate(){
+  function onCreate(){
+    sendPoll(getDataString());
+  }
 
+  createBtn.onclick = onCreate;
 
-  sendPoll(getData());
-}
+}());
 
-createBtn.onclick = onCreate;
