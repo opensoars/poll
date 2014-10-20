@@ -17,7 +17,7 @@ poll
 4. Poll away!
 
 
-### Tech used
+### Tech used (so far)
 * [Node.js](http://nodejs.org/)
 * [Express](http://expressjs.com/)
 * [ezlog](https://github.com/opensoars/ezlog)
