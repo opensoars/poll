@@ -9,7 +9,7 @@ var ARGV = process.argv,
 var PORT = 80;
 
 process.DIR = __dirname;
-process.POLLS = [];
+process.POLL_COL = require('./lib/poll_col');
 
 /**
  * Dependencies

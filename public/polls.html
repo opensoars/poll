@@ -11,13 +11,17 @@
   var POLLS_URL = '/polls';
 
   function drawPoll(poll){
-    pollsList.innerHTML += "<li><a href='/polls/" + poll.pollCount + "'>"
-      + poll.title + "</a></li>";
+    pollsList.innerHTML += "<li><a href='/polls/" + poll.id + "'>"
+      + JSON.stringify(poll) + "</a></li>";
   }
 
   function handlePolls(polls){
     pollsList.innerHTML = '';
-    polls.forEach(drawPoll);
+
+    if(polls.length === 0){
+      pollsList.innerHTML = 'There are no polls!';
+    }
+    else polls.forEach(drawPoll);
   }
 
   function getPolls(){
