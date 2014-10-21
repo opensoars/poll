@@ -8,6 +8,8 @@ var ARGV = process.argv,
 
 var PORT = 80;
 
+process.DIR = __dirname;
+process.POLLS = [];
 
 /**
  * Dependencies
@@ -36,6 +38,23 @@ var handlers = require('./lib/handlers');
 // Log requests if ENV === dev
 if(ENV === 'dev') app.use(function (req, res, next){
   log(req.method + ' ' + req.url); return next();
+});
+
+// Body parser, will be more secure later on
+app.use(function (req, res, next){
+
+  var body = '';
+
+  req.on('data', function (c){
+    body += c;
+  });
+
+  req.on('end', function (){
+
+    req.body = body;
+    next();
+  });
+
 });
 
 app.use(express.static(__dirname + '/public'));

@@ -1,0 +1,51 @@
+<h1>Polls</h1>
+
+<ul id='pollsList'>
+
+</div>
+
+<script>
+  
+  var pollsList = document.getElementById('pollsList');
+
+  var POLLS_URL = '/polls';
+
+  function drawPoll(poll){
+    pollsList.innerHTML += "<li><a href='/polls/" + poll.pollCount + "'>"
+      + poll.title + "</a></li>";
+  }
+
+  function handlePolls(polls){
+    pollsList.innerHTML = '';
+    polls.forEach(drawPoll);
+  }
+
+  function getPolls(){
+
+    var req = new XMLHttpRequest();
+
+    req.onabort = function (){
+      pollsList.innerHTML = 'Could not GET polls';
+    };
+
+    req.onreadystatechange = function (){
+      if(this.readyState === 4){
+        if(this.status === 200){
+          handlePolls(JSON.parse(this.response));
+        }
+        else pollsList.innerHTML = 'Could not GET polls';
+      }
+
+    };
+
+    req.open('GET', POLLS_URL, true);
+    req.send('');
+  }
+
+  getPolls();
+  setInterval(function (){ getPolls(); }, 2500);
+
+
+
+
+</script>

@@ -1,10 +1,12 @@
+var POLL_URL = '/polls';
+
 // DOM
 var pollForm = ge('pollForm'),
+    titleInp = ge('titleInp')
     optionList = ge('optionList'),
     multiCheck = ge('multiCheck'),
     ipCheck = ge('ipCheck'),
-    createBtn = ge('createBtn'),
-    titleInp = ge('titleInp');
+    createBtn = ge('createBtn');
 
 
 // Helpers
@@ -18,7 +20,9 @@ function ce(type){ return document.createElement(type); }
     last.onkeydown = null;
 
     var li = ce('li'),
-    input = li.appendChild( ce('input') );
+        input = ce('input');
+
+    li.appendChild(input);
 
     input.onkeydown = onKeyDown;
 
@@ -34,14 +38,14 @@ function ce(type){ return document.createElement(type); }
 
 // Adds listener to createBtn
 // When clicked send data which is pulled out of the 'form'
-// by the getDataString function
+// by the getDataSt
 (function (){
 
   function sendPoll(data){
     console.log(data);
     var req = new XMLHttpRequest();
 
-    req.open('POST', '/polls', true);
+    req.open('POST', POLL_URL, true);
 
     req.onabort = function (){
       console.log('req.onabort');
