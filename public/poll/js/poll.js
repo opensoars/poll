@@ -1,3 +1,6 @@
+var pollTitle = document.getElementById('pollTitle');
+
 var id = window.location.search.split('=')[1];
 
-console.log(id);
+document.title += ' #' + id;
+pollTitle.innerHTML += ' #' + id;

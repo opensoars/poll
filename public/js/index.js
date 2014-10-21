@@ -1,4 +1,5 @@
-var POLL_URL = '/rest/polls';
+var POST_URL = '/rest/polls',
+    POLL_URL = '/poll/?id='
 
 // DOM
 var pollForm = ge('pollForm'),
@@ -41,23 +42,28 @@ function ce(type){ return document.createElement(type); }
 // by the getDataSt
 (function (){
 
+  function handleFail(resp){
+
+  }
+
+  function handleSucces(resp){
+    window.location = POLL_URL + resp.id;
+  }
+
   function sendPoll(data){
-    console.log(data);
     var req = new XMLHttpRequest();
 
-    req.open('POST', POLL_URL, true);
+    req.open('POST', POST_URL, true);
 
-    req.onabort = function (){
-      console.log('req.onabort');
-    };
-
-    req.onerror = function (){
-      console.log('req.onerror');
-    };
+    req.onabort = function (){ handleFail(JSON.parse(this.response)) };
+    req.onerror = function (){ handleFail(JSON.parse(this.response)) };
 
     req.onreadystatechange = function (){
       if(this.readyState === 4)
-        console.log(this);
+        if(this.status === 200)
+          handleSucces(JSON.parse(this.response));
+        else
+          handleFail(this.response);
     }
 
     req.send(data);

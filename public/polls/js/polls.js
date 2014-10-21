@@ -10,6 +10,8 @@ function drawPoll(poll){
 function handlePolls(polls){
   pollsList.innerHTML = '';
 
+  polls.reverse();
+
   if(polls.length === 0){
     pollsList.innerHTML = 'There are no polls!';
   }
