@@ -6,9 +6,9 @@
 
 <script>
   
-  var pollsList = document.getElementById('pollsList');
+  var POLLS_URL = '/rest/polls';
 
-  var POLLS_URL = '/polls';
+  var pollsList = document.getElementById('pollsList');
 
   function drawPoll(poll){
     pollsList.innerHTML += "<li><a href='/polls/" + poll.id + "'>"

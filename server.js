@@ -65,13 +65,13 @@ app.use(express.static(__dirname + '/public'));
  */
 
 // Serves list of polls
-app.get('/polls', handlers.get_polls)
+app.get('/rest/polls', handlers.get_polls)
 
 // Serves an existing poll
-app.get('/polls/:id', handlers.get_polls_by_id);
+app.get('/rest/polls/:id', handlers.get_polls_by_id);
 
 // Creates new poll
-app.post('/polls', handlers.post_polls);
+app.post('/rest/polls', handlers.post_polls);
 
 
 // Start listening

@@ -1,4 +1,4 @@
-var POLL_URL = '/polls';
+var POLL_URL = '/rest/polls';
 
 // DOM
 var pollForm = ge('pollForm'),
