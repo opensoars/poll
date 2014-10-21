@@ -4,7 +4,7 @@ var pollsList = document.getElementById('pollsList');
 
 function drawPoll(poll){
   pollsList.innerHTML += "<li><a href='/poll/?id=" + poll.id + "'>"
-    + JSON.stringify(poll) + "</a></li>";
+    + poll.title + "</a></li>";
 }
 
 function handlePolls(polls){
