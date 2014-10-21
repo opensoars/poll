@@ -3,7 +3,7 @@ var POLLS_URL = '/rest/polls';
 var pollsList = document.getElementById('pollsList');
 
 function drawPoll(poll){
-  pollsList.innerHTML += "<li><a href='/poll.html?id=" + poll.id + "'>"
+  pollsList.innerHTML += "<li><a href='/poll/?id=" + poll.id + "'>"
     + JSON.stringify(poll) + "</a></li>";
 }
 
