@@ -164,15 +164,26 @@ function startResultGetter(){
     if(hundredPercent !== 0){
 
       for(var key in results){
+        result = results[key];
+
+        if(result !== 0){
+          var t = hundredPercent / result;
+          console.log(t);
+        }
+
+
+      }
+
+      /*for(var key in results){
         if(results[key] !== 0){
-          var percentage = 100 / results[key];
+          var percentage = hundredPercent / results[key] * 100;
 
           document.getElementById('resultPercentage_' + key)
             .innerHTML = percentage + '%';
 
           console.log(percentage);
         }
-      }
+      }*/
 
     } // /hundredPercent !== 0
 

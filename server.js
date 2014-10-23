@@ -75,6 +75,11 @@ if(ENV === 'dev'){
         title: 'Sample poll, ip: false', options: ['I like it', 'I love it'],
         multi: false, ip: false
   } }) );
+
+  process.POLL_COL.add( new Poll({ data: {
+        title: 'Sample poll, percentages', options: [1, 2, 3, 4, 5, 6],
+        multi: false, ip: false
+  } }) );
 }
 
 /**
