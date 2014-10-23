@@ -110,8 +110,8 @@ hTitle.innerHTML += ' #' + ID;
     options.forEach(function (option, i){
       resultList.innerHTML +=
         "<li>" + option + ": " 
-        + "<span id='resultPercentage_" + i + "'></span>"
-        + "<span id='resultCount_" + i + "'></span></li>";
+        + "<span id='resultPercentage_" + i + "'>0%</span> - "
+        + "<span id='resultCount_" + i + "'>0</span></li>";
     });
   }
 
@@ -159,7 +159,23 @@ function startResultGetter(){
       document.getElementById('resultCount_' + key).innerHTML = results[key];
     }
 
-    console.log(totalVotes);
+    var hundredPercent = totalVotes;
+
+    if(hundredPercent !== 0){
+
+      for(var key in results){
+        if(results[key] !== 0){
+          var percentage = 100 / results[key];
+
+          document.getElementById('resultPercentage_' + key)
+            .innerHTML = percentage + '%';
+
+          console.log(percentage);
+        }
+      }
+
+    } // /hundredPercent !== 0
+
   }
 
   function getResults(){
