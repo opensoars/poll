@@ -105,6 +105,10 @@ hTitle.innerHTML += ' #' + ID;
   }
 
   // ALLOW ORDERING BY PERCENTAGE || COUNT
+  /**
+   * This can be easily done by just looping through all the results
+   * it won't have to be put in placeholders. Overhead ftw?
+   */
   function writeResultPlaceholder(poll){
     var options = poll.options;
 
