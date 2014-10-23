@@ -151,12 +151,15 @@ function startResultGetter(){
   }
 
   function handleResults(results){
+
+    var totalVotes = 0;
+
     for(var key in results){
-
-      // LETS CALCULATE PERCENTAGES HERE
-
+      totalVotes += results[key];
       document.getElementById('resultCount_' + key).innerHTML = results[key];
     }
+
+    console.log(totalVotes);
   }
 
   function getResults(){
