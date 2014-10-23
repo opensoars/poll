@@ -14,7 +14,7 @@ process.DIR = __dirname;
 
 process.POLL_COL = require('./lib/poll_col');
 process.POLL_COUNT = 0;
-process.POLL_TIMEOUT = 40000;
+process.POLL_TIMEOUT = 60000;
 
 
 /**
@@ -75,7 +75,6 @@ if(ENV === 'dev'){
         title: 'Sample poll, ip: false', options: ['I like it!', 'I love it!'],
         multi: false, ip: false
   } }) );
-
 }
 
 /**
@@ -87,6 +86,9 @@ app.get('/rest/polls', handlers.get_polls)
 
 // Serves an existing poll
 app.get('/rest/polls/:id', handlers.get_polls_by_id);
+
+// Gets poll results
+app.get('/rest/results/:id', handlers.get_results_by_id);
 
 // Creates new poll
 app.post('/rest/polls', handlers.post_polls);
