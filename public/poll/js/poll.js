@@ -29,12 +29,15 @@ hTitle.innerHTML += ' #' + ID;
     req.onabort = handleAbort;
 
     req.onreadystatechange = function (){
-
-      // ANYWAY PARSE IT JSON
-
       if(this.readyState === 4){
-        if(this.status === 200) handleSucces(JSON.parse(this.response));
-        else handleFail(this.reponse);
+        var resp;
+        try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
+
+        if(this.status === 200){
+          if(resp.status === 'failed') handleFail(resp.desc);
+          else handleSucces();
+        }
+        else handleFail(resp.desc);
       }
     };
 

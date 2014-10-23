@@ -1,7 +1,7 @@
-var FOCUS = true;
+var IS_FOCUSSED = true;
 
-window.onfocus = function(){ FOCUS = true; };
-window.onblur = function(){ FOCUS = false; };
+window.onfocus = function(){ IS_FOCUSSED = true; };
+window.onblur = function(){ IS_FOCUSSED = false; };
 
 var POLLS_URL = '/rest/polls';
 
@@ -33,9 +33,11 @@ function getPolls(){
 
   req.onreadystatechange = function (){
     if(this.readyState === 4){
-      if(this.status === 200){
-        handlePolls(JSON.parse(this.response));
-      }
+
+      var resp;
+      try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
+
+      if(this.status === 200) handlePolls(resp);
       else pollsList.innerHTML = 'Could not GET polls';
     }
 
@@ -47,5 +49,5 @@ function getPolls(){
 
 getPolls();
 setInterval(function (){
-  if(FOCUS) getPolls();
+  if(IS_FOCUSSED) getPolls();
 }, 2500);

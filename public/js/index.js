@@ -59,11 +59,15 @@ function ce(type){ return document.createElement(type); }
     req.onerror = function (){ handleFail(JSON.parse(this.response)) };
 
     req.onreadystatechange = function (){
-      if(this.readyState === 4)
+      if(this.readyState === 4){
+        var resp;
+        try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
+
         if(this.status === 200)
-          handleSucces(JSON.parse(this.response));
+          handleSucces(resp);
         else
-          handleFail(this.response);
+          handleFail(resp);
+      }
     }
 
     req.send(data);
