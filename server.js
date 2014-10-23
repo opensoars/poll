@@ -62,17 +62,17 @@ if(ENV === 'dev') app.use(function (req, res, next){
 
 if(ENV === 'dev'){
   process.POLL_COL.add( new Poll({ data: {
-        title: 'Sample poll, multi', options: ['I like it!', 'I love it!'],
+        title: 'Sample poll, multi', options: ['I like it', 'I love it'],
         multi: true, ip: true
   } }) );
 
   process.POLL_COL.add( new Poll({ data: {
-        title: 'Sample poll, single', options: ['I like it!', 'I love it!'],
+        title: 'Sample poll, single', options: ['I like it', 'I love it'],
         multi: false, ip: true
   } }) );
 
   process.POLL_COL.add( new Poll({ data: {
-        title: 'Sample poll, ip: false', options: ['I like it!', 'I love it!'],
+        title: 'Sample poll, ip: false', options: ['I like it', 'I love it'],
         multi: false, ip: false
   } }) );
 }

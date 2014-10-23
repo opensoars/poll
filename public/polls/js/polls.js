@@ -1,5 +1,4 @@
 var IS_FOCUSSED = true;
-
 window.onfocus = function(){ IS_FOCUSSED = true; };
 window.onblur = function(){ IS_FOCUSSED = false; };
 

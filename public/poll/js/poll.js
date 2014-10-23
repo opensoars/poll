@@ -1,3 +1,7 @@
+var IS_FOCUSSED = true;
+window.onfocus = function(){ IS_FOCUSSED = true; };
+window.onblur = function(){ IS_FOCUSSED = false; };
+
 var hTitle = document.getElementById('hTitle'),
     main = document.getElementById('main'),
     pollData = document.getElementById('pollData'),
@@ -13,47 +17,6 @@ var FAIL_TEXT = '<p>Could not GET poll. This poll does not exist!</p>'
 
 document.title += ' #' + ID;
 hTitle.innerHTML += ' #' + ID;
-
-(function (){
-
-  function handleSucces(results){
-    console.log(results);
-  }
-  function handleAbort(){
-    alert('Vote could not be cast. Request failed');
-  }
-  function handleFail(desc){
-    alert('Vote could not be cast. ' + desc || '');
-  }
-
-
-  function getResults(){
-    var req = new XMLHttpRequest();
-
-    req.onabort = handleAbort;
-
-    req.onreadystatechange = function (){
-      if(this.readyState === 4){
-        var resp;
-        try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
-
-        if(this.status === 200){
-          if(resp.status === 'failed') handleFail(resp.desc);
-          else handleSucces();
-        }
-        else handleFail(resp.desc);
-      }
-    };
-
-    req.open('GET', RESULTS_URL, true);
-
-    req.send('');
-  }
-
-
-  getResults();
-
-}());
 
 (function (){
 
@@ -135,7 +98,21 @@ hTitle.innerHTML += ' #' + ID;
         
           return str;
         }()
-      + "</ol>"
+      + "</ol>";
+
+    writeResultPlaceholder(poll);
+
+  }
+
+  function writeResultPlaceholder(poll){
+    var options = poll.options;
+
+    options.forEach(function (option, i){
+      resultList.innerHTML +=
+        "<li>" + option + ": " 
+        + "<span id='resultPercentage_" + i + "'></span>"
+        + "<span id='resultCount_" + i + "'></span></li>";
+    });
   }
 
   function handleFail(){ main.innerHTML = FAIL_TEXT; }
@@ -158,9 +135,57 @@ hTitle.innerHTML += ' #' + ID;
 
   getPoll();
 
+  startResultGetter();
+
 }());
 
 
 
+function startResultGetter(){
 
+  function handleAbort(){
+    alert('Could not get poll results. Request failed');
+  }
+  function handleFail(desc){
+    alert('Could not get poll results. ' + (desc || ''));
+  }
+
+  function handleResults(results){
+    for(var key in results){
+
+      // LETS CALCULATE PERCENTAGES HERE
+
+      document.getElementById('resultCount_' + key).innerHTML = results[key];
+    }
+  }
+
+  function getResults(){
+    var req = new XMLHttpRequest();
+
+    req.onabort = handleAbort;
+
+    req.onreadystatechange = function (){
+      if(this.readyState === 4){
+        var resp;
+        try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
+
+        if(this.status === 200){
+          if(resp.status === 'failed') handleFail(resp.desc);
+          else handleResults(resp);
+        }
+        else handleFail(resp.desc);
+      }
+    };
+
+    req.open('GET', RESULTS_URL, true);
+
+    req.send('');
+  }
+
+  setInterval(function (){
+    if(IS_FOCUSSED) getResults();
+  }, 2500);
+
+  getResults();
+}
 
