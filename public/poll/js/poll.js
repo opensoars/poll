@@ -10,8 +10,10 @@ var FAIL_TEXT = 'Could not GET poll. This poll does not exist!'
 document.title += ' #' + ID;
 hTitle.innerHTML += ' #' + ID;
 
-function handlePoll(poll){
-  main.innerHTML += "<h3>" + poll.title + "</h3>";
+function writePoll(poll){
+  main.innerHTML += "<h3>" + poll.title + "</h3>"
+    + ""
+    + "Created at: " + new Date(poll.createdAt);
 }
 
 function getPoll(){
@@ -24,7 +26,7 @@ function getPoll(){
 
   req.onreadystatechange = function (){
     if(this.readyState === 4){
-      if(this.status === 200) handlePoll(JSON.parse(this.response));
+      if(this.status === 200) writePoll(JSON.parse(this.response));
       else main.innerHTML = FAIL_TEXT;
     }
 
