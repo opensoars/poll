@@ -5,6 +5,8 @@ var hTitle = document.getElementById('hTitle'),
 var ID = window.location.search.split('=')[1],
     POLL_URL = '/rest/polls/' + ID;
 
+var FAIL_TEXT = 'Could not GET poll. This poll does not exist!'
+
 document.title += ' #' + ID;
 hTitle.innerHTML += ' #' + ID;
 
@@ -17,15 +19,13 @@ function getPoll(){
   var req = new XMLHttpRequest();
 
   req.onabort = function (){
-    main.innerHTML = 'Could not GET poll';
+    main.innerHTML = FAIL_TEXT;
   };
 
   req.onreadystatechange = function (){
     if(this.readyState === 4){
-      if(this.status === 200){
-        handlePoll(JSON.parse(this.response));
-      }
-      else main.innerHTML = 'Could not GET poll';
+      if(this.status === 200) handlePoll(JSON.parse(this.response));
+      else main.innerHTML = FAIL_TEXT;
     }
 
   };

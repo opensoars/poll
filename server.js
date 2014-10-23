@@ -10,6 +10,8 @@ var PORT = 80;
 
 process.DIR = __dirname;
 process.POLL_COL = require('./lib/poll_col');
+process.POLL_COUNT = 0;
+
 
 /**
  * Dependencies
@@ -28,17 +30,13 @@ var Ezlog = require('ezlog'),
     log = new Ezlog({ p: {t: '[server]', c: 'green'} });
 
 // Request handlers
-var handlers = require('./lib/handlers');
+var handlers = require('./lib/handlers'),
+    Poll = require('./lib/Poll');
 
 
 /**
  * Midleware stack
  */
-
-// Log requests if ENV === dev
-if(ENV === 'dev') app.use(function (req, res, next){
-  log(req.method + ' ' + req.url); return next();
-});
 
 // Body parser, will be more secure later on
 app.use(function (req, res, next){
@@ -50,7 +48,6 @@ app.use(function (req, res, next){
   });
 
   req.on('end', function (){
-
     req.body = body;
     next();
   });
@@ -59,6 +56,19 @@ app.use(function (req, res, next){
 
 app.use(express.static(__dirname + '/public'));
 
+
+// Log requests if ENV === dev
+if(ENV === 'dev') app.use(function (req, res, next){
+  log(req.method + ' ' + req.url); return next();
+});
+
+
+if(ENV === 'dev'){
+  process.POLL_COL.add( new Poll({ data: {
+        title: 'Sample poll', options: ['I like it!', 'I love it!'],
+        multi: false, ip: true
+  } }) );
+}
 
 /**
  * Request handlers
