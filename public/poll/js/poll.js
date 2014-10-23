@@ -104,6 +104,7 @@ hTitle.innerHTML += ' #' + ID;
 
   }
 
+  // ALLOW ORDERING BY PERCENTAGE || COUNT
   function writeResultPlaceholder(poll){
     var options = poll.options;
 
@@ -114,6 +115,8 @@ hTitle.innerHTML += ' #' + ID;
         + "<span id='resultCount_" + i + "'>0</span></li>";
     });
   }
+  // ALLOW ORDERING BY PERCENTAGE || COUNT
+
 
   function handleFail(){ main.innerHTML = FAIL_TEXT; }
 
@@ -150,6 +153,7 @@ function startResultGetter(){
     alert('Could not get poll results. ' + (desc || ''));
   }
 
+  // ALLOW ORDERING BY PERCENTAGE || COUNT
   function handleResults(results){
 
     var totalVotes = 0;
@@ -159,15 +163,15 @@ function startResultGetter(){
       document.getElementById('resultCount_' + key).innerHTML = results[key];
     }
 
-    var hundredPercent = totalVotes;
-
+    // ALLOW ORDERING BY PERCENTAGE || COUNT
     for(var key in results)
       if(results[key] !== 0)
         document.getElementById('resultPercentage_' + key)
-         .innerHTML = Math.round(100 / (hundredPercent / results[key])) + '%';
-
-
+         .innerHTML = Math.round(100 / (totalVotes / results[key])) + '%';
+    // ALLOW ORDERING BY PERCENTAGE || COUNT
   }
+  // ALLOW ORDERING BY PERCENTAGE || COUNT
+
 
   function getResults(){
     var req = new XMLHttpRequest();
