@@ -3,7 +3,7 @@ var hTitle = document.getElementById('hTitle'),
     pollData = document.getElementById('pollData'),
     voteBtn = document.getElementById('voteBtn');
 
-var ID = window.location.search.split('=')[1],
+var ID = window.location.search.split('=')[1] || 0,
     POLL_URL = '/rest/polls/' + ID,
     VOTE_URL = '/rest/vote/' + ID;
 
@@ -35,10 +35,8 @@ hTitle.innerHTML += ' #' + ID;
     req.onreadystatechange = function (){
 
       if(this.readyState === 4){
-
         var resp;
         try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
-
 
         if(this.status === 200){
           if(resp.status === 'failed') handleFail(resp.desc);
@@ -61,7 +59,7 @@ hTitle.innerHTML += ' #' + ID;
     for(var i=0; i<options.length; i+=1)
       if(options[i].checked === true) checks.push(i);
 
-    if(checks.length === 0) return false;
+    if(checks.length === 0) return alert('Nothing to submit!');
 
     postVote(checks);
   }

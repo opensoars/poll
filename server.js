@@ -14,7 +14,7 @@ process.DIR = __dirname;
 
 process.POLL_COL = require('./lib/poll_col');
 process.POLL_COUNT = 0;
-process.POLL_TIMEOUT = 10000;
+process.POLL_TIMEOUT = 25000;
 
 
 /**
@@ -71,6 +71,11 @@ if(ENV === 'dev'){
         multi: false, ip: true
   } }) );
 
+  process.POLL_COL.add( new Poll({ data: {
+        title: 'Sample poll, ip: false', options: ['I like it!', 'I love it!'],
+        multi: false, ip: false
+  } }) );
+
 }
 
 /**
@@ -88,6 +93,7 @@ app.post('/rest/polls', handlers.post_polls);
 
 // Votes for a poll by id
 app.post('/rest/vote/:id', handlers.post_vote_by_id);
+
 
 // Start listening
 app.listen(PORT);
