@@ -66,7 +66,7 @@ if(ENV === 'dev'){
   } }) );
 
   process.POLL_COL.add( new Poll({ data: {
-        title: 'Sample pol, single', options: ['I like it!', 'I love it!'],
+        title: 'Sample poll, single', options: ['I like it!', 'I love it!'],
         multi: false, ip: true
   } }) );
 

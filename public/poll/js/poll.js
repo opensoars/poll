@@ -1,56 +1,79 @@
 var hTitle = document.getElementById('hTitle'),
-    pollData = document.getElementById('pollData');
-
+    main = document.getElementById('main'),
+    pollData = document.getElementById('pollData'),
+    voteBtn = document.getElementById('voteBtn');
 
 var ID = window.location.search.split('=')[1],
     POLL_URL = '/rest/polls/' + ID;
 
-var FAIL_TEXT = 'Could not GET poll. This poll does not exist!'
+var FAIL_TEXT = '<p>Could not GET poll. This poll does not exist!</p>'
 
 document.title += ' #' + ID;
 hTitle.innerHTML += ' #' + ID;
 
-function writePoll(poll){
-  pollData.innerHTML +="<h3>" + poll.title + "</h3>"
-    + "<p>" + new Date(poll.createdAt) + "</p>"
-    + "<ol>"
-    + function (){
-        var str = '', options = poll.options;
 
-        if(poll.multi)  for(var i=0; i<options.length; i+=1)
-          str += "<li><input id='checkbox_" + i + "' type='checkbox'>"
-            + "<label for='checkbox_" + i + "''>" + options[i] + "</label></li>";
+(function (){
 
-        else  for(var i=0; i<options.length; i+=1)
-          str += "<li><input name='singleVoteGroup' id='radio_" + i + "'"
-            + " type='radio'><label for='radio_" + i + "'>"
-            + options[i] + "</label</li>";
-      
-        return str;
-      }()
-    + "</ol>"
+  function isValidVote(){
+    return false;
+  }
 
-}
+  function onVoteClick(evt){
+    if(isValidVote());
+  }
 
-function getPoll(){
+  voteBtn.onclick = onVoteClick;
 
-  var req = new XMLHttpRequest();
-
-  req.onabort = function (){
-    pollData.innerHTML = FAIL_TEXT;
-  };
-
-  req.onreadystatechange = function (){
-    if(this.readyState === 4){
-      if(this.status === 200) writePoll(JSON.parse(this.response));
-      else pollData.innerHTML = FAIL_TEXT;
-    }
-
-  };
-
-  req.open('GET', POLL_URL, true);
-  req.send('');
-}
+}());
 
 
-getPoll();
+(function (){
+
+  function writePoll(poll){
+    pollData.innerHTML +="<h3>" + poll.title + "</h3>"
+      + "<p>" + new Date(poll.createdAt) + "</p>"
+      + "<ol>"
+      + function (){
+          var str = '', options = poll.options;
+
+          if(poll.multi)  for(var i=0; i<options.length; i+=1)
+            str += "<li><input id='checkbox_" + i + "' type='checkbox'>"
+              + "<label for='checkbox_" + i + "''>" + options[i]
+              + "</label></li>";
+
+          else  for(var i=0; i<options.length; i+=1)
+            str += "<li><input name='singleVoteGroup' id='radio_" + i + "'"
+              + " type='radio'><label for='radio_" + i + "'>"
+              + options[i] + "</label</li>";
+        
+          return str;
+        }()
+      + "</ol>"
+  }
+
+  function getPoll(){
+    var req = new XMLHttpRequest();
+
+    req.onabort = function (){
+      main.innerHTML = FAIL_TEXT;
+    };
+
+    req.onreadystatechange = function (){
+      if(this.readyState === 4){
+        if(this.status === 200) writePoll(JSON.parse(this.response));
+        else main.innerHTML = FAIL_TEXT;
+      }
+    };
+
+    req.open('GET', POLL_URL, true);
+    req.send('');
+  }
+
+  getPoll();
+
+}());
+
+
+
+
+
