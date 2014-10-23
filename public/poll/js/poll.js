@@ -1,7 +1,8 @@
 var hTitle = document.getElementById('hTitle'),
     main = document.getElementById('main'),
     pollData = document.getElementById('pollData'),
-    voteBtn = document.getElementById('voteBtn');
+    voteBtn = document.getElementById('voteBtn'),
+    resultList = document.getElementById('resultList');
 
 var ID = window.location.search.split('=')[1] || 0,
     POLL_URL = '/rest/polls/' + ID,
@@ -12,6 +13,12 @@ var FAIL_TEXT = '<p>Could not GET poll. This poll does not exist!</p>'
 document.title += ' #' + ID;
 hTitle.innerHTML += ' #' + ID;
 
+(function (){
+
+
+  
+
+}());
 
 (function (){
 
