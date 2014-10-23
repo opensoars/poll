@@ -85,6 +85,8 @@ app.get('/rest/polls/:id', handlers.get_polls_by_id);
 // Creates new poll
 app.post('/rest/polls', handlers.post_polls);
 
+// Votes for a poll by id
+app.post('/rest/vote/:id', handlers.post_vote_by_id);
 
 // Start listening
 app.listen(PORT);

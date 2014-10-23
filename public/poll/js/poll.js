@@ -4,7 +4,8 @@ var hTitle = document.getElementById('hTitle'),
     voteBtn = document.getElementById('voteBtn');
 
 var ID = window.location.search.split('=')[1],
-    POLL_URL = '/rest/polls/' + ID;
+    POLL_URL = '/rest/polls/' + ID,
+    VOTE_URL = '/rest/vote/' + ID;
 
 var FAIL_TEXT = '<p>Could not GET poll. This poll does not exist!</p>'
 
@@ -14,13 +15,43 @@ hTitle.innerHTML += ' #' + ID;
 
 (function (){
 
-  function isValidVote(){
-    return false;
+  function handleDuplicate(){
+
+  }
+
+
+  function handleFail(){
+    alert('Vote could not be cast. Request failed.');
+  }
+
+  function postVote(checks){
+
+    var req = new XMLHttpRequest();
+    req.onabort = handleFail;
+
+    req.onreadystatechange = function (){
+      console.log(this);
+    };
+
+    req.open('POST', VOTE_URL, true);
+
+
+    req.send(JSON.stringify(checks));
+
   }
 
   function onVoteClick(evt){
-    if(isValidVote());
+    var options = document.getElementsByClassName('option'),
+        checks = [];
+
+    for(var i=0; i<options.length; i+=1)
+      if(options[i].checked === true) checks.push(i);
+
+    if(checks.length === 0) return false;
+
+    postVote(checks);
   }
+
 
   voteBtn.onclick = onVoteClick;
 
@@ -37,12 +68,14 @@ hTitle.innerHTML += ' #' + ID;
           var str = '', options = poll.options;
 
           if(poll.multi)  for(var i=0; i<options.length; i+=1)
-            str += "<li><input id='checkbox_" + i + "' type='checkbox'>"
+            str += "<li><input class='option' id='checkbox_" + i
+              + "' type='checkbox'>"
               + "<label for='checkbox_" + i + "''>" + options[i]
               + "</label></li>";
 
           else  for(var i=0; i<options.length; i+=1)
-            str += "<li><input name='singleVoteGroup' id='radio_" + i + "'"
+            str += "<li><input name='singleVoteGroup' class='option'"
+              + " id='radio_" + i + "' value='" + i + "'"
               + " type='radio'><label for='radio_" + i + "'>"
               + options[i] + "</label</li>";
         
@@ -51,17 +84,17 @@ hTitle.innerHTML += ' #' + ID;
       + "</ol>"
   }
 
+  function handleFail(){ main.innerHTML = FAIL_TEXT; }
+
   function getPoll(){
     var req = new XMLHttpRequest();
 
-    req.onabort = function (){
-      main.innerHTML = FAIL_TEXT;
-    };
+    req.onabort = handleFail;
 
     req.onreadystatechange = function (){
       if(this.readyState === 4){
         if(this.status === 200) writePoll(JSON.parse(this.response));
-        else main.innerHTML = FAIL_TEXT;
+        else handleFail();
       }
     };
 
