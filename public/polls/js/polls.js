@@ -23,22 +23,23 @@ function handlePolls(polls){
   else polls.forEach(drawPoll);
 }
 
+function handleFail(){
+  pollsList.innerHTML = 'Could not GET polls';
+}
+
 function getPolls(){
 
   var req = new XMLHttpRequest();
 
-  req.onabort = function (){
-    pollsList.innerHTML = 'Could not GET polls';
-  };
+  req.onabort = handleFail;
 
   req.onreadystatechange = function (){
     if(this.readyState === 4){
-
       var resp;
       try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
 
       if(this.status === 200) handlePolls(resp);
-      else pollsList.innerHTML = 'Could not GET polls';
+      else handleFail();
     }
 
   };

@@ -56,7 +56,6 @@ function ce(type){ return document.createElement(type); }
     req.open('POST', POST_URL, true);
 
     req.onabort = function (){ handleFail(JSON.parse(this.response)) };
-    req.onerror = function (){ handleFail(JSON.parse(this.response)) };
 
     req.onreadystatechange = function (){
       if(this.readyState === 4){

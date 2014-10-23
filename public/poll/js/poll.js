@@ -19,8 +19,12 @@ hTitle.innerHTML += ' #' + ID;
   function handleSucces(results){
     console.log(results);
   }
-  function handleAbort(){}
-  function handleFail(){}
+  function handleAbort(){
+    alert('Vote could not be cast. Request failed');
+  }
+  function handleFail(desc){
+    alert('Vote could not be cast. ' + desc || '');
+  }
 
 
   function getResults(){
