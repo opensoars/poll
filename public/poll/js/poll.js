@@ -161,31 +161,11 @@ function startResultGetter(){
 
     var hundredPercent = totalVotes;
 
-    if(hundredPercent !== 0){
+    for(var key in results)
+      if(results[key] !== 0)
+        document.getElementById('resultPercentage_' + key)
+         .innerHTML = Math.round(100 / (hundredPercent / results[key])) + '%';
 
-      for(var key in results){
-        result = results[key];
-
-        if(result !== 0){
-          var t = hundredPercent / result;
-          console.log(t);
-        }
-
-
-      }
-
-      /*for(var key in results){
-        if(results[key] !== 0){
-          var percentage = hundredPercent / results[key] * 100;
-
-          document.getElementById('resultPercentage_' + key)
-            .innerHTML = percentage + '%';
-
-          console.log(percentage);
-        }
-      }*/
-
-    } // /hundredPercent !== 0
 
   }
 

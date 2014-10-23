@@ -77,8 +77,8 @@ if(ENV === 'dev'){
   } }) );
 
   process.POLL_COL.add( new Poll({ data: {
-        title: 'Sample poll, percentages', options: [1, 2, 3, 4, 5, 6],
-        multi: false, ip: false
+        title: 'Sample poll, percentages', options: 'abcdef'.split(''),
+        multi: false, ip: true
   } }) );
 }
 
