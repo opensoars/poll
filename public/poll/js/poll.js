@@ -15,13 +15,16 @@ hTitle.innerHTML += ' #' + ID;
 
 (function (){
 
-  function handleDuplicate(){
-
+  function handleAbort(){
+    alert('Vote could not be cast. Request failed.');
   }
 
+  function handleFail(desc){
+    alert('Vote could not be cast. ' + desc || '');
+  }
 
-  function handleFail(){
-    alert('Vote could not be cast. Request failed.');
+  function handleSucces(){
+    alert('Vote succesful!');
   }
 
   function postVote(checks){
@@ -30,14 +33,25 @@ hTitle.innerHTML += ' #' + ID;
     req.onabort = handleFail;
 
     req.onreadystatechange = function (){
-      console.log(this);
+
+      if(this.readyState === 4){
+
+        var resp;
+        try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
+
+
+        if(this.status === 200){
+          if(resp.status === 'failed') handleFail(resp.desc);
+          else handleSucces();
+        }
+        else handleFail(resp.desc);
+      }
+
     };
 
     req.open('POST', VOTE_URL, true);
 
-
     req.send(JSON.stringify(checks));
-
   }
 
   function onVoteClick(evt){
