@@ -100,7 +100,7 @@ hTitle.innerHTML += ' #' + ID;
         }()
       + "</ol>";
 
-    writeResultPlaceholder(poll);
+    //writeResultPlaceholder(poll);
 
   }
 
@@ -109,6 +109,7 @@ hTitle.innerHTML += ' #' + ID;
    * This can be easily done by just looping through all the results
    * it won't have to be put in placeholders. Overhead ftw?
    */
+  /*
   function writeResultPlaceholder(poll){
     var options = poll.options;
 
@@ -119,6 +120,7 @@ hTitle.innerHTML += ' #' + ID;
         + "<span id='resultCount_" + i + "'>0</span></li>";
     });
   }
+  */
   // ALLOW ORDERING BY PERCENTAGE || COUNT
 
 
@@ -157,9 +159,17 @@ function startResultGetter(){
     alert('Could not get poll results. ' + (desc || ''));
   }
 
-  // ALLOW ORDERING BY PERCENTAGE || COUNT
   function handleResults(results){
 
+    var resultArr = [];
+
+    for(var key in results) resultArr.push(results[key]);
+
+    resultArr = resultArr.sort().reverse();
+
+    console.log(resultArr);
+
+/*
     var totalVotes = 0;
 
     for(var key in results){
@@ -167,14 +177,12 @@ function startResultGetter(){
       document.getElementById('resultCount_' + key).innerHTML = results[key];
     }
 
-    // ALLOW ORDERING BY PERCENTAGE || COUNT
     for(var key in results)
       if(results[key] !== 0)
         document.getElementById('resultPercentage_' + key)
          .innerHTML = Math.round(100 / (totalVotes / results[key])) + '%';
-    // ALLOW ORDERING BY PERCENTAGE || COUNT
+*/
   }
-  // ALLOW ORDERING BY PERCENTAGE || COUNT
 
 
   function getResults(){
