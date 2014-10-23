@@ -160,14 +160,24 @@ function startResultGetter(){
   }
 
   function handleResults(results){
-
+/*
     var resultArr = [];
-
     for(var key in results) resultArr.push(results[key]);
-
     resultArr = resultArr.sort().reverse();
 
     console.log(resultArr);
+*/
+
+    resultList.innerHTML = '';
+  
+    var totalVotes = 0;
+
+    for(var key in results){
+      totalVotes += 1;
+      resultList.innerHTML +=
+        "<li id='result_" + key + "'>" + results[key] + "</li>";
+    }
+
 
 /*
     var totalVotes = 0;
