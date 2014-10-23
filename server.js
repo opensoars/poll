@@ -8,7 +8,10 @@ var ARGV = process.argv,
 
 var PORT = 80;
 
+
 process.DIR = __dirname;
+
+
 process.POLL_COL = require('./lib/poll_col');
 process.POLL_COUNT = 0;
 
@@ -26,6 +29,8 @@ var express = require('express'),
     app = express();
 
 // Pretty logging
+var cls = require('opensoars_cls');
+
 var Ezlog = require('ezlog'),
     log = new Ezlog({ p: {t: '[server]', c: 'green'} });
 
@@ -40,18 +45,9 @@ var handlers = require('./lib/handlers'),
 
 // Body parser, will be more secure later on
 app.use(function (req, res, next){
-
   var body = '';
-
-  req.on('data', function (c){
-    body += c;
-  });
-
-  req.on('end', function (){
-    req.body = body;
-    next();
-  });
-
+  req.on('data', function (c){ body += c; });
+  req.on('end', function (){ req.body = body; next(); });
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -59,15 +55,21 @@ app.use(express.static(__dirname + '/public'));
 
 // Log requests if ENV === dev
 if(ENV === 'dev') app.use(function (req, res, next){
-  log(req.method + ' ' + req.url); return next();
+  log( cls(req.method, 'magenta') + ' ' + req.url); return next();
 });
 
 
 if(ENV === 'dev'){
   process.POLL_COL.add( new Poll({ data: {
-        title: 'Sample poll', options: ['I like it!', 'I love it!'],
+        title: 'Sample poll, multi', options: ['I like it!', 'I love it!'],
+        multi: true, ip: true
+  } }) );
+
+  process.POLL_COL.add( new Poll({ data: {
+        title: 'Sample pol, single', options: ['I like it!', 'I love it!'],
         multi: false, ip: true
   } }) );
+
 }
 
 /**

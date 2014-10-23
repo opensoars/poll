@@ -11,9 +11,25 @@ document.title += ' #' + ID;
 hTitle.innerHTML += ' #' + ID;
 
 function writePoll(poll){
-  main.innerHTML += "<h3>" + poll.title + "</h3>"
-    + ""
-    + "Created at: " + new Date(poll.createdAt);
+  main.innerHTML +="<h3>" + poll.title + "</h3>"
+    + "<p>" + new Date(poll.createdAt) + "</p>"
+    + "<ol>"
+    + function (){
+        var str = '', options = poll.options;
+
+        if(poll.multi)  for(var i=0; i<options.length; i+=1)
+          str += "<li><input id='checkbox_" + i + "' type='checkbox'>"
+            + "<label for='checkbox_" + i + "''>" + options[i] + "</label></li>";
+
+        else  for(var i=0; i<options.length; i+=1)
+          str += "<li><input name='singleVoteGroup' id='radio_" + i + "'"
+            + " type='radio'><label for='radio_" + i + "'>"
+            + options[i] + "</label</li>";
+      
+        return str;
+      }()
+    + "</ol>"
+
 }
 
 function getPoll(){
