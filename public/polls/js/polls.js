@@ -1,3 +1,8 @@
+var FOCUS = true;
+
+window.onfocus = function(){ FOCUS = true; };
+window.onblur = function(){ FOCUS = false; };
+
 var POLLS_URL = '/rest/polls';
 
 var pollsList = document.getElementById('pollsList');
@@ -41,4 +46,6 @@ function getPolls(){
 }
 
 getPolls();
-setInterval(function (){ getPolls(); }, 2500);
+setInterval(function (){
+  if(FOCUS) getPolls();
+}, 2500);
