@@ -3,12 +3,15 @@ var assert = require('assert'),
 
 var server = require('./../../server.js');
 
+setTimeout(function (){
+
+
 describe('handlers', function (){
 
   describe('#post_polls', function (){
 
     it('should create a new poll', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/polls', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
 
@@ -37,7 +40,7 @@ describe('handlers', function (){
 
   describe('#get_polls', function (){
     it('should return the poll we just created', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/polls', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
 
@@ -67,7 +70,7 @@ describe('handlers', function (){
 
   describe('#get_polls_by_id', function (){
     it('should return the poll we just created with the id of 0', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/polls', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
 
@@ -112,7 +115,7 @@ describe('handlers', function (){
   describe('#get_results_by_id', function (){
 
     it('should get the poll results for the poll we just created with the id of 0', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/polls', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
 
@@ -157,7 +160,7 @@ describe('handlers', function (){
   describe('#post_vote_by_id', function (){
 
     it('should increment the vote for options 1 (not 0) to 1', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/vote/0', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/vote/0', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
@@ -185,7 +188,7 @@ describe('handlers', function (){
     });
 
     it('should allow multiple votes when we set ip:true', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/polls', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
@@ -195,14 +198,14 @@ describe('handlers', function (){
 
           var id = d.id;
 
-          var o = { hostname: '127.0.0.1', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+          var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
 
           var req = http.request(o, function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
               d = JSON.parse(d);
 
-              var o = { hostname: '127.0.0.1', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+              var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
 
               var req = http.request(o, function (res){
                 var d = ''; res.on('data', function (c){ d += c; });
@@ -248,7 +251,7 @@ describe('handlers', function (){
     });
 
     it('should return a 403 when we do not allow multiple votes from the same ip', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/polls', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
@@ -258,14 +261,14 @@ describe('handlers', function (){
 
           var id = d.id;
 
-          var o = { hostname: '127.0.0.1', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+          var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
 
           var req = http.request(o, function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
               d = JSON.parse(d);
 
-              var o = { hostname: '127.0.0.1', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+              var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
 
               var req = http.request(o, function (res){
                 var d = ''; res.on('data', function (c){ d += c; });
@@ -306,7 +309,7 @@ describe('handlers', function (){
     });
 
     it('should return a 404 when the poll is not found', function (done){
-      var o = { hostname: '127.0.0.1', path: '/rest/vote/500', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', path: '/rest/vote/500', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
@@ -329,4 +332,9 @@ describe('handlers', function (){
 
 
 });
+
+
+
+
+}, 1000);
 

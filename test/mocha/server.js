@@ -2,9 +2,13 @@ var assert = require('assert');
 
 var http = require('http');
 
+var server = require('./../../server.js');
+
+setTimeout(function (){
+
 describe('server', function (){
 
-  var server = require('./../../server.js');
+
 
   describe('#status', function (){
     it('Should return status: succes', function (){
@@ -53,3 +57,4 @@ describe('server', function (){
 
 });
 
+}, 1000);
