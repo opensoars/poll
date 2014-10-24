@@ -109,10 +109,11 @@ hTitle.innerHTML += ' #' + ID;
     var options = poll.options;
 
     options.forEach(function (option, i){
-      resultList.innerHTML +=
-        "<li>" + option + ": " 
+      resultList.innerHTML += "<li>" + option + ": " 
         + "<span id='resultPercentage_" + i + "'>0%</span> - "
-        + "<span id='resultCount_" + i + "'>0</span></li>";
+        + "<span id='resultCount_" + i + "'>0</span>" 
+        + "<div style='height:10px; width: 0px; background: green;"
+        + " 'id='bar_" + i + "'></div></li>";
     });
   }
   // ALLOW ORDERING BY PERCENTAGE || COUNT
@@ -153,7 +154,6 @@ function startResultGetter(){
     alert('Could not get poll results. ' + (desc || ''));
   }
 
-  // ALLOW ORDERING BY PERCENTAGE || COUNT
   function handleResults(results){
 
     var totalVotes = 0;
@@ -163,14 +163,24 @@ function startResultGetter(){
       document.getElementById('resultCount_' + key).innerHTML = results[key];
     }
 
-    // ALLOW ORDERING BY PERCENTAGE || COUNT
     for(var key in results)
       if(results[key] !== 0)
         document.getElementById('resultPercentage_' + key)
          .innerHTML = Math.round(100 / (totalVotes / results[key])) + '%';
-    // ALLOW ORDERING BY PERCENTAGE || COUNT
+
+    for(var key in results){
+      var bar = document.getElementById('bar_' + key);
+
+      if(results[key] === 0)
+        bar.style.width = '0px';
+      else
+        bar.style.width =
+          (Math.round(100 / (totalVotes / results[key])) * 2) + 'px';
+    }
+
+    // Lets order it
+
   }
-  // ALLOW ORDERING BY PERCENTAGE || COUNT
 
 
   function getResults(){
