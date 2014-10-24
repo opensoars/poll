@@ -189,9 +189,7 @@ function startResultGetter(){
         bar.style.width =
           (Math.round(100 / (totalVotes / results[key])) * 2) + 'px';
     }
-
   }
-
 
   function getResults(){
     var req = new XMLHttpRequest();
@@ -219,7 +217,7 @@ function startResultGetter(){
 
   setInterval(function (){
     if(IS_FOCUSSED) getResults();
-  }, 2500);
+  }, 1250);
 
   getResults();
 }

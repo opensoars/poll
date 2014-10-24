@@ -1,1 +1,1 @@
-console.log('mocha');
+var server = require('./../../server.js');
