@@ -14,7 +14,7 @@ process.DIR = __dirname;
 
 process.POLL_COL = require('./lib/poll_col');
 process.POLL_COUNT = 0;
-process.POLL_TIMEOUT = 60000;
+process.POLL_TIMEOUT = ENV === 'dev' ? 60000 : 600000;
 
 
 /**

@@ -160,6 +160,9 @@ function startResultGetter(){
 
   function handleResults(results){
 
+    if(!POLL) return false;
+
+
     var options = POLL.options;
 
     var totalVotes = 0;
