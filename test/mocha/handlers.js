@@ -182,19 +182,125 @@ describe('handlers', function (){
       req.end();
     });
 
-    it('should return a 404 when we do not allow multiple votes from the same ip', function (done){
+    it('should allow multiple votes when we set ip:true', function (done){
       var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
+
         res.on('end', function (){
-          console.log(d);
-        })
+          d = JSON.parse(d);
+
+          var id = d.id;
+
+          var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+
+          var req = http.request(o, function (res){
+            var d = ''; res.on('data', function (c){ d += c; });
+            res.on('end', function (){
+              d = JSON.parse(d);
+
+              var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+
+              var req = http.request(o, function (res){
+                var d = ''; res.on('data', function (c){ d += c; });
+                res.on('end', function (){
+                  d = JSON.parse(d);
+                  assert.equal(d.status, 'succes');
+
+                  http.get('http://localhost/rest/results/' + id, function (res){
+                    var d = ''; res.on('data', function (c){ d += c; });
+                    res.on('end', function (){
+                      var results = JSON.parse(d);
+                      assert.equal(results[1], 2);
+                      done();
+                    });
+                  });
+
+
+                });
+              });
+
+              req.on('error', function (){ throw 'POST request failed!'; });
+
+              req.write(JSON.stringify([1]));
+              req.end();
+
+
+            });
+          });
+
+          req.on('error', function (){ throw 'POST request failed!'; });
+
+          req.write(JSON.stringify([1]));
+          req.end();
+
+
+
+        });
       });
 
       req.on('error', function (){ throw 'POST request failed!'; });
 
-      req.write(JSON.stringify({ title: 'Hello World!', options: ['a', 'b'] }));
+      req.write(JSON.stringify({ ip: true, title: 'Hello World!', options: ['a', 'b'] }));
+      req.end();
+    });
+
+    it('should return a 403 when we do not allow multiple votes from the same ip', function (done){
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
+
+      var req = http.request(o, function (res){
+        var d = ''; res.on('data', function (c){ d += c; });
+
+        res.on('end', function (){
+          d = JSON.parse(d);
+
+          var id = d.id;
+
+          var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+
+          var req = http.request(o, function (res){
+            var d = ''; res.on('data', function (c){ d += c; });
+            res.on('end', function (){
+              d = JSON.parse(d);
+
+              var o = { hostname: 'localhost', path: '/rest/vote/' + id, port: 80, method: 'POST' };
+
+              var req = http.request(o, function (res){
+                var d = ''; res.on('data', function (c){ d += c; });
+                res.on('end', function (){
+                  d = JSON.parse(d);
+
+                  assert.equal(d.status, 'failed');
+                  assert.equal(d.desc, 'You can only vote once for this poll.');
+                  assert.equal(res.statusCode, 403);
+
+                  done();
+                });
+              });
+
+              req.on('error', function (){ throw 'POST request failed!'; });
+
+              req.write(JSON.stringify([1]));
+              req.end();
+
+
+            });
+          });
+
+          req.on('error', function (){ throw 'POST request failed!'; });
+
+          req.write(JSON.stringify([1]));
+          req.end();
+
+
+
+        });
+      });
+
+      req.on('error', function (){ throw 'POST request failed!'; });
+
+      req.write(JSON.stringify({ ip: false, title: 'Hello World!', options: ['a', 'b'] }));
       req.end();
     });
 
