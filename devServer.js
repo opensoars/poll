@@ -60,25 +60,25 @@ app.use(function (req, res, next){
 
 
 
-process.POLL_COL.add( new Poll({ data: {
+process.POLL_COL.add( new Poll({ 
   title: 'Sample poll, multi', options: ['I like it', 'I love it'],
   multi: true, ip: true
-} }) );
+}) );
 
-process.POLL_COL.add( new Poll({ data: {
+process.POLL_COL.add( new Poll({ 
   title: 'Sample poll, single', options: ['I like it', 'I love it'],
   multi: false, ip: true
-} }) );
+}) );
 
-process.POLL_COL.add( new Poll({ data: {
+process.POLL_COL.add( new Poll({ 
   title: 'Sample poll, ip: false', options: ['I like it', 'I love it'],
   multi: false, ip: false
-} }) );
+}) );
 
-process.POLL_COL.add( new Poll({ data: {
+process.POLL_COL.add( new Poll({ 
   title: 'Sample poll, percentages', options: 'abcdef'.split(''),
   multi: false, ip: true
-} }) );
+}) );
 
 
 /**

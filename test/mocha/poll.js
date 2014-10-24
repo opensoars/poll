@@ -42,23 +42,54 @@ describe('Poll', function (){
       var poll = new Poll( JSON.stringify({options: ['a', 'b']}) );
     });
 
-  });
-
-  describe('#active pinger', function (){
-
-    it('should have set timeout to the default 60000 when no timeout.config argument is given', function (){
+    it('should have set timeout to the default 60000 when no config argument is given', function (){
       var poll = new Poll({ options: ['a', 'b'] });
-      assert.equal(poll.timeout, 60000);
+      assert.equal(poll.timeout, 600000);
     });
 
-    it('should have set timeout to 100 when we pass the config.timeout argument', function (done){
-      var poll = new Poll({
-        config: {timeout: 100},
-        data: JSON.stringify({options: ['a', 'b']})
-      });
+    it('should have set timeout to 100 when we pass the timeout argument as 100', function (){
+      var poll = new Poll({ timeout: 100, options: ['a', 'b'] });
       assert.equal(poll.timeout, 100);
     });
 
+  });
+
+  describe('#active pinger', function (){
+    it('should call ping checkActive(), checked by the remove call', function (done){
+      var poll = new Poll({ timeout: 100, options: ['a', 'b'] });
+      setTimeout(function (){ done(); }, 1100);
+    });
+  });
+
+  describe('#isUsed', function (){
+    it('should set a new date when we call it', function (done){
+      var poll = new Poll({ options: ['a', 'b'] });
+      done();
+    });
+  });
+
+  describe('#getPublicData', function (){
+    it('should return: id, title, createdAt, options and multi', function (){
+      var poll = new Poll({  options: ['a', 'b'] });
+      var publicData = poll.getPublicData();
+
+      var keyCount = 0;
+      for(var key in publicData) keyCount += 1;
+      
+      assert.equal(keyCount, 5);
+
+    });
+  });
+
+
+  describe('#getVotes', function (){
+    it('should return 0 votes for `a` and `b`', function (){
+      var poll = new Poll({  options: ['a', 'b'] });
+      var votes = poll.getVotes();
+
+      assert.equal(votes[0], 0);
+      assert.equal(votes[1], 0);
+    });
   });
 
 });
