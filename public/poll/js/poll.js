@@ -164,13 +164,15 @@ function startResultGetter(){
     }
 
     for(var key in results)
-      if(results[key] !== 0)
-        document.getElementById('resultPercentage_' + key)
-         .innerHTML = Math.round(100 / (totalVotes / results[key])) + '%';
+      var percentageText = document.getElementById('resultPercentage_' + key);
+      if(results[key] === 0)
+        percentageText = '0%';
+      else
+        percentageText.innerHTML =
+          Math.round(100 / (totalVotes / results[key])) + '%';
 
     for(var key in results){
       var bar = document.getElementById('bar_' + key);
-
       if(results[key] === 0)
         bar.style.width = '0px';
       else
