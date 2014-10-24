@@ -116,8 +116,8 @@ hTitle.innerHTML += ' #' + ID;
       resultList.innerHTML += "<li>" + option + ": " 
         + "<span class='percentage' id='resultPercentage_" + i + "'>0%</span> - "
         + "<span class='count' id='resultCount_" + i + "'>0</span>" 
-        + "<div class='bar' style='height:10px; width: 0px; background: green;"
-        + " 'id='bar_" + i + "'></div></li>";
+        + "<div style='width: 200px; background: red'><div class='bar' style='height:10px; width: 0px; background: green;"
+        + " 'id='bar_" + i + "'></div></div></li>";
     });
   }
   // ALLOW ORDERING BY PERCENTAGE || COUNT
