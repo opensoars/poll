@@ -1,0 +1,30 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'localTest' ]
+2 info using npm@1.4.27
+3 info using node@v0.10.17
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose run-script [ 'prelocalTest', 'localTest', 'postlocalTest' ]
+6 info prelocalTest poll@0.0.1
+7 info localTest poll@0.0.1
+8 verbose unsafe-perm in lifecycle true
+9 info poll@0.0.1 Failed to exec localTest script
+10 error poll@0.0.1 localTest: `node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha "./test/mocha/*.js"`
+10 error Exit status 8
+11 error Failed at the poll@0.0.1 localTest script.
+11 error This is most likely a problem with the poll package,
+11 error not with npm itself.
+11 error Tell the author that this fails on your system:
+11 error     node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha "./test/mocha/*.js"
+11 error You can get their info via:
+11 error     npm owner ls poll
+11 error There is likely additional logging output above.
+12 error System Windows_NT 6.1.7601
+13 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "localTest"
+14 error cwd C:\dev\poll
+15 error node -v v0.10.17
+16 error npm -v 1.4.27
+17 error code ELIFECYCLE
+18 verbose exit [ 1, true ]
