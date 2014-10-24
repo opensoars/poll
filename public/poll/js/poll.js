@@ -15,6 +15,8 @@ var ID = window.location.search.split('=')[1] || 0,
 
 var FAIL_TEXT = '<p>Could not GET poll. This poll does not exist!</p>'
 
+var POLL;
+
 document.title += ' #' + ID;
 hTitle.innerHTML += ' #' + ID;
 
@@ -106,13 +108,15 @@ hTitle.innerHTML += ' #' + ID;
 
   // ALLOW ORDERING BY PERCENTAGE || COUNT
   function writeResultPlaceholder(poll){
+    POLL = poll;
+
     var options = poll.options;
 
     options.forEach(function (option, i){
       resultList.innerHTML += "<li>" + option + ": " 
-        + "<span id='resultPercentage_" + i + "'>0%</span> - "
-        + "<span id='resultCount_" + i + "'>0</span>" 
-        + "<div style='height:10px; width: 0px; background: green;"
+        + "<span class='percentage' id='resultPercentage_" + i + "'>0%</span> - "
+        + "<span class='count' id='resultCount_" + i + "'>0</span>" 
+        + "<div class='bar' style='height:10px; width: 0px; background: green;"
         + " 'id='bar_" + i + "'></div></li>";
     });
   }
@@ -156,6 +160,8 @@ function startResultGetter(){
 
   function handleResults(results){
 
+    var options = POLL.options;
+
     var totalVotes = 0;
 
     for(var key in results){
@@ -163,13 +169,14 @@ function startResultGetter(){
       document.getElementById('resultCount_' + key).innerHTML = results[key];
     }
 
-    for(var key in results)
+    for(var key in results){
       var percentageText = document.getElementById('resultPercentage_' + key);
       if(results[key] === 0)
         percentageText = '0%';
       else
         percentageText.innerHTML =
           Math.round(100 / (totalVotes / results[key])) + '%';
+    }
 
     for(var key in results){
       var bar = document.getElementById('bar_' + key);
@@ -179,8 +186,6 @@ function startResultGetter(){
         bar.style.width =
           (Math.round(100 / (totalVotes / results[key])) * 2) + 'px';
     }
-
-    // Lets order it
 
   }
 
@@ -192,6 +197,7 @@ function startResultGetter(){
 
     req.onreadystatechange = function (){
       if(this.readyState === 4){
+
         var resp;
         try{ resp = JSON.parse(this.response); } catch(e){ resp = {} }
 
