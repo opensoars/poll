@@ -96,18 +96,111 @@ describe('handlers', function (){
       http.get('http://localhost/rest/polls/500', function (res){
         var d = ''; res.on('data', function (c){ d += c; });
         res.on('end', function (){
-
           d = JSON.parse(d);
-
           assert.equal(d.status, 'failed')
           assert.equal(d.desc, 'Could not find poll: 500');
           assert.equal(res.statusCode, 404);
-
           done();
-
         });
       })
+    });
+
+  });
+
+  describe('#get_results_by_id', function (){
+
+    it('should get the poll results for the poll we just created with the id of 0', function (done){
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
+
+      var req = http.request(o, function (res){
+
+        res.on('data', function (){
+
+          http.get('http://localhost/rest/results/0', function (res){
+            var d = ''; res.on('data', function (c){ d += c; });
+            res.on('end', function (){
+              results = JSON.parse(d);
+
+              assert.equal(results[0], 0);
+              assert.equal(results[1], 0);
+              done();
+            });
+          });
+
+        });
+      });
+
+      req.on('error', function (){ throw 'POST request failed!'; });
+
+      req.write(JSON.stringify({ title: 'Hello World!', options: ['a', 'b'] }));
+      req.end();
+    });
+
+    it('should return a 404 when the poll is not found', function (done){
+
+      http.get('http://localhost/rest/results/500', function (res){
+        var d = ''; res.on('data', function (c){ d += c; });
+        res.on('end', function (){
+          d = JSON.parse(d);
+
+          assert.equal(d.status, 'failed');
+          assert.equal(d.desc, 'Could not find poll: 500');
+          done();
+        });
+      });
+    });
+
+  });
+
+  describe('#post_vote_by_id', function (){
+
+    it('should increment the vote for options 1 (not 0) to 1', function (done){
+      var o = { hostname: 'localhost', path: '/rest/vote/0', port: 80, method: 'POST' };
+
+      var req = http.request(o, function (res){
+        var d = ''; res.on('data', function (c){ d += c; });
+        res.on('end', function (){
+          d = JSON.parse(d);
+          assert.equal(d.status, 'succes');
+
+          http.get('http://localhost:/rest/results/0', function (res){
+            var d = ''; res.on('data', function (c){ d += c; });
+            res.on('end', function (){
+              results = JSON.parse(d);
+              assert.equal(results[0], 0);
+              assert.equal(results[1], 1);
+              done();
+            });
+          });
+
+        });
+      });
+
+      req.on('error', function (){ throw 'POST request failed!'; });
+
+      req.write(JSON.stringify([1]));
+      req.end();
     })
+
+    it('should return a 404 when the poll is not found', function (done){
+      var o = { hostname: 'localhost', path: '/rest/vote/500', port: 80, method: 'POST' };
+
+      var req = http.request(o, function (res){
+        var d = ''; res.on('data', function (c){ d += c; });
+        res.on('end', function (){
+          d = JSON.parse(d);
+          assert.equal(d.status, 'failed');
+          assert.equal(d.desc, 'The poll you wanted to vote for does not exist.');
+          assert.equal(res.statusCode, 404);
+          done();
+        });
+      });
+
+      req.on('error', function (){ throw 'POST request failed!'; });
+
+      req.write(JSON.stringify([1]));
+      req.end();
+    });
 
   });
 
