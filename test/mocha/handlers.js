@@ -180,7 +180,23 @@ describe('handlers', function (){
 
       req.write(JSON.stringify([1]));
       req.end();
-    })
+    });
+
+    it('should return a 404 when we do not allow multiple votes from the same ip', function (done){
+      var o = { hostname: 'localhost', path: '/rest/polls', port: 80, method: 'POST' };
+
+      var req = http.request(o, function (res){
+        var d = ''; res.on('data', function (c){ d += c; });
+        res.on('end', function (){
+          console.log(d);
+        })
+      });
+
+      req.on('error', function (){ throw 'POST request failed!'; });
+
+      req.write(JSON.stringify({ title: 'Hello World!', options: ['a', 'b'] }));
+      req.end();
+    });
 
     it('should return a 404 when the poll is not found', function (done){
       var o = { hostname: 'localhost', path: '/rest/vote/500', port: 80, method: 'POST' };
