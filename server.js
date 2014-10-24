@@ -4,7 +4,7 @@
 
 // Find out what enviroment to run
 var ARGV = process.argv,
-    ENV = ARGV[2] || undefined;
+    ENV = ARGV[2];
 
 var PORT = 80;
 
