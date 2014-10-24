@@ -13,7 +13,7 @@ process.DIR = __dirname;
 
 
 process.POLL_COL = require('./lib/poll_col');
-process.POLL_TIMEOUT = 800000;
+process.POLL_TIMEOUT = 80000;
 
 
 /**
@@ -32,7 +32,7 @@ var express = require('express'),
 var cls = require('opensoars_cls');
 
 var Ezlog = require('ezlog'),
-    log = new Ezlog({ p: {t: '[server]', c: 'green'} });
+    log = new Ezlog({ p: {t: '[devServer]', c: 'green'} });
 
 // Request handlers
 var handlers = require('./lib/handlers'),
@@ -51,6 +51,35 @@ app.use(function (req, res, next){
 });
 
 app.use(express.static(__dirname + '/public'));
+
+
+// Log requests if ENV === dev
+app.use(function (req, res, next){
+  log( cls(req.method, 'magenta') + ' ' + req.url); return next();
+});
+
+
+
+process.POLL_COL.add( new Poll({ data: {
+      title: 'Sample poll, multi', options: ['I like it', 'I love it'],
+      multi: true, ip: true
+} }) );
+
+process.POLL_COL.add( new Poll({ data: {
+      title: 'Sample poll, single', options: ['I like it', 'I love it'],
+      multi: false, ip: true
+} }) );
+
+process.POLL_COL.add( new Poll({ data: {
+      title: 'Sample poll, ip: false', options: ['I like it', 'I love it'],
+      multi: false, ip: false
+} }) );
+
+process.POLL_COL.add( new Poll({ data: {
+      title: 'Sample poll, percentages', options: 'abcdef'.split(''),
+      multi: false, ip: true
+} }) );
+
 
 /**
  * Request handlers
