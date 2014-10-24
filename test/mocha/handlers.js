@@ -26,7 +26,9 @@ describe('handlers', function (){
         });
       });
 
-      req.on('error', function (){ throw 'POST request failed!'; });
+      req.on('error', function (e){
+        console.log(e);
+        throw 'POST request failed!'; });
 
       req.write(JSON.stringify({ title: 'Hello World!', options: ['a', 'b'] }));
       req.end();
