@@ -26,4 +26,6 @@ poll
 * HTML5
 
 
+### Note
+A new way of testing the RESTful API should b included in the project! Since [Travis-ci](https://travis-ci.org/) is having a hard time testing it. It isn't able to make requests to the server. I got to look into this!
 
