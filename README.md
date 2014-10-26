@@ -2,7 +2,7 @@ poll
 ====
 
 
-[![Build Status](https://travis-ci.org/opensoars/poll.svg?branch=master)](https://travis-ci.org/opensoars/poll)
+[![Build Status](https://img.shields.io/travis/opensoars/poll.svg?style=flat)](https://travis-ci.org/opensoars/poll)
 
 
 [Strawpoll.me](http://www.strawpoll.me/) rip (created in a couple of hours).
