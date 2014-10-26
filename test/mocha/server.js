@@ -23,7 +23,7 @@ describe('server', function (){
   describe('#body parser middleware', function (){
     it('should use the body parser middleware function (GET)', function (done){
 
-      http.get('http://localhost:8372', function (res){
+      http.get('http://localhost:' + server.port, function (res){
         done();
       }).on('error', function (e){
         throw 'GET request failed!';
@@ -33,7 +33,7 @@ describe('server', function (){
 
     it('should use the body parser middleware function (POST)', function (done){
 
-      var o = { hostname: 'localhost', port: 8372, method: 'POST' };
+      var o = { hostname: 'localhost', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
         var isDone = false;
