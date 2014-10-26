@@ -6,7 +6,7 @@
 var ARGV = process.argv,
     ENV = ARGV[2];
 
-var PORT = 80;
+var PORT = 8372;
 
 
 process.DIR = __dirname;
@@ -75,8 +75,6 @@ app.post('/rest/vote/:id', handlers.post_vote_by_id);
 // Start listening
 app.listen(PORT);
 log('Listening at port: ' + PORT);
-
-app.request('asd');
 
 module.exports = {
   status: 'succes',

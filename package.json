@@ -1,11 +1,14 @@
 {
-  "name": "poll",
+  "name": "tt",
 
-  "description": "Strawpoll.me rip",
+  "description": "Test Travis",
 
   "version": "0.0.1",
 
   "scripts": {
+    "test": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\" && npm run coveralls",
+    "coveralls": "node node_modules/coveralls/bin/coveralls.js < coverage/lcov.info",
+    "localTest": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\""
   },
 
   "engines" : {
@@ -26,7 +29,7 @@
 
   "repository": {
     "type": "git",
-    "url": "https://github.com/opensoars/poll"
+    "url": "https://github.com/opensoars/tt"
   },
 
   "readmeFilename": "README.md"
