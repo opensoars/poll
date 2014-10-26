@@ -8,8 +8,6 @@ setTimeout(function (){
 
 describe('server', function (){
 
-
-
   describe('#status', function (){
     it('Should return status: succes', function (){
       assert.equal(server.status, 'succes');
@@ -17,15 +15,15 @@ describe('server', function (){
   });
 
   describe('#port', function (){
-    it('should return port 80', function (){
-      assert.equal(server.port, 80);
+    it('should return port 8372', function (){
+      assert.equal(server.port, 8372);
     });
   });
 
   describe('#body parser middleware', function (){
     it('should use the body parser middleware function (GET)', function (done){
 
-      http.get('http://localhost:80', function (res){
+      http.get('http://localhost:8372', function (res){
         done();
       }).on('error', function (e){
         throw 'GET request failed!';
@@ -35,7 +33,7 @@ describe('server', function (){
 
     it('should use the body parser middleware function (POST)', function (done){
 
-      var o = { hostname: 'localhost', port: 80, method: 'POST' };
+      var o = { hostname: 'localhost', port: 8372, method: 'POST' };
 
       var req = http.request(o, function (res){
         var isDone = false;
