@@ -3,7 +3,7 @@ poll
 
 
 [![Build Status](https://img.shields.io/travis/opensoars/poll.svg?style=flat)](https://travis-ci.org/opensoars/poll)
-
+[![Coverage Status](https://img.shields.io/coveralls/opensoars/poll.svg?style=flat)](https://coveralls.io/r/opensoars/poll)
 
 [Strawpoll.me](http://www.strawpoll.me/) rip (created in a couple of hours).
 
