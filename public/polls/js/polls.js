@@ -2,7 +2,7 @@ var IS_FOCUSSED = true;
 window.onfocus = function(){ IS_FOCUSSED = true; };
 window.onblur = function(){ IS_FOCUSSED = false; };
 
-var POLLS_URL = '/rest/polls';
+var POLLS_URL = '/api/polls';
 
 var pollsList = document.getElementById('pollsList');
 

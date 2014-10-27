@@ -57,19 +57,19 @@ app.use(express.static(__dirname + '/public'));
  */
 
 // Serves list of polls
-app.get('/rest/polls', handlers.get_polls)
+app.get('/api/polls', handlers.get_polls)
 
 // Serves an existing poll
-app.get('/rest/polls/:id', handlers.get_polls_by_id);
-
-// Gets poll results
-app.get('/rest/results/:id', handlers.get_results_by_id);
+app.get('/api/polls/:id', handlers.get_polls_by_id);
 
 // Creates new poll
-app.post('/rest/polls', handlers.post_polls);
+app.post('/api/polls', handlers.post_polls);
+
+// Gets poll vote results
+app.get('/api/vote/:id', handlers.get_vote_by_id);
 
 // Votes for a poll by id
-app.post('/rest/vote/:id', handlers.post_vote_by_id);
+app.post('/api/vote/:id', handlers.post_vote_by_id);
 
 
 // Start listening

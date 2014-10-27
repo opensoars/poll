@@ -9,9 +9,9 @@ var hTitle = document.getElementById('hTitle'),
     resultList = document.getElementById('resultList');
 
 var ID = window.location.search.split('=')[1] || 0,
-    POLL_URL = '/rest/polls/' + ID,
-    VOTE_URL = '/rest/vote/' + ID,
-    RESULTS_URL = '/rest/results/' + ID;
+    POLL_URL = '/api/polls/' + ID,
+    VOTE_URL = '/api/vote/' + ID;
+
 
 var FAIL_TEXT = '<p>Could not GET poll. This poll does not exist!</p>'
 
@@ -210,7 +210,7 @@ function startResultGetter(){
       }
     };
 
-    req.open('GET', RESULTS_URL, true);
+    req.open('GET', VOTE_URL, true);
 
     req.send('');
   }

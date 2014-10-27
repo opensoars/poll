@@ -8,13 +8,13 @@ describe('handlers', function (){
   describe('#post_polls', function (){
 
     it('should create a new poll', function (done){
-      var o = { hostname: server.hostname, path: '/rest/polls', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, path: '/api/polls', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
 
         res.on('data', function (){
 
-          http.get(server.listeningAt + '/rest/polls', function (res){
+          http.get(server.listeningAt + '/api/polls', function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
               var polls = JSON.parse(d);
@@ -37,13 +37,13 @@ describe('handlers', function (){
 
   describe('#get_polls', function (){
     it('should return the poll we just created', function (done){
-      var o = { hostname: server.hostname, path: '/rest/polls', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, path: '/api/polls', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
 
         res.on('data', function (){
 
-          http.get(server.listeningAt + '/rest/polls', function (res){
+          http.get(server.listeningAt + '/api/polls', function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
               var polls = JSON.parse(d);
@@ -67,13 +67,13 @@ describe('handlers', function (){
 
   describe('#get_polls_by_id', function (){
     it('should return the poll we just created with the id of 0', function (done){
-      var o = { hostname: server.hostname, path: '/rest/polls', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, path: '/api/polls', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
 
         res.on('data', function (){
 
-          http.get(server.listeningAt + '/rest/polls/0', function (res){
+          http.get(server.listeningAt + '/api/polls/0', function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
               var poll = JSON.parse(d);
@@ -95,7 +95,7 @@ describe('handlers', function (){
     });
 
     it('should return a 404 when the poll was not found', function (done){
-      http.get(server.listeningAt + '/rest/polls/500', function (res){
+      http.get(server.listeningAt + '/api/polls/500', function (res){
         var d = ''; res.on('data', function (c){ d += c; });
         res.on('end', function (){
           d = JSON.parse(d);
@@ -111,20 +111,20 @@ describe('handlers', function (){
 
   describe('#get_results_by_id', function (){
 
-    it('should get the poll results for the poll we just created with the id of 0', function (done){
-      var o = { hostname: server.hostname, path: '/rest/polls', port: server.port, method: 'POST' };
+    it('should get the poll vote for the poll we just created with the id of 0', function (done){
+      var o = { hostname: server.hostname, path: '/api/polls', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
 
         res.on('data', function (){
 
-          http.get(server.listeningAt + '/rest/results/0', function (res){
+          http.get(server.listeningAt + '/api/vote/0', function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
-              results = JSON.parse(d);
+              vote = JSON.parse(d);
 
-              assert.equal(results[0], 0);
-              assert.equal(results[1], 0);
+              assert.equal(vote[0], 0);
+              assert.equal(vote[1], 0);
               done();
             });
           });
@@ -140,7 +140,7 @@ describe('handlers', function (){
 
     it('should return a 404 when the poll is not found', function (done){
 
-      http.get(server.listeningAt + '/rest/results/500', function (res){
+      http.get(server.listeningAt + '/api/vote/500', function (res){
         var d = ''; res.on('data', function (c){ d += c; });
         res.on('end', function (){
           d = JSON.parse(d);
@@ -157,7 +157,7 @@ describe('handlers', function (){
   describe('#post_vote_by_id', function (){
 
     it('should increment the vote for options 1 (not 0) to 1', function (done){
-      var o = { hostname: server.hostname, path: '/rest/vote/0', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, path: '/api/vote/0', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
@@ -165,12 +165,12 @@ describe('handlers', function (){
           d = JSON.parse(d);
           assert.equal(d.status, 'succes');
 
-          http.get(server.listeningAt + '/rest/results/0', function (res){
+          http.get(server.listeningAt + '/api/vote/0', function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
-              results = JSON.parse(d);
-              assert.equal(results[0], 0);
-              assert.equal(results[1], 1);
+              vote = JSON.parse(d);
+              assert.equal(vote[0], 0);
+              assert.equal(vote[1], 1);
               done();
             });
           });
@@ -186,7 +186,7 @@ describe('handlers', function (){
 
 
     it('should allow multiple votes when we set ip:true', function (done){
-      var o = { hostname: server.hostname, path: '/rest/polls', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, path: '/api/polls', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
@@ -196,14 +196,14 @@ describe('handlers', function (){
 
           var id = d.id;
 
-          var o = { hostname: server.hostname, path: '/rest/vote/' + id, port: server.port, method: 'POST' };
+          var o = { hostname: server.hostname, path: '/api/vote/' + id, port: server.port, method: 'POST' };
 
           var req = http.request(o, function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
               d = JSON.parse(d);
 
-              var o = { hostname: server.hostname, path: '/rest/vote/' + id, port: server.port, method: 'POST' };
+              var o = { hostname: server.hostname, path: '/api/vote/' + id, port: server.port, method: 'POST' };
 
               var req = http.request(o, function (res){
                 var d = ''; res.on('data', function (c){ d += c; });
@@ -211,11 +211,11 @@ describe('handlers', function (){
                   d = JSON.parse(d);
                   assert.equal(d.status, 'succes');
 
-                  http.get(server.listeningAt + '/rest/results/' + id, function (res){
+                  http.get(server.listeningAt + '/api/vote/' + id, function (res){
                     var d = ''; res.on('data', function (c){ d += c; });
                     res.on('end', function (){
-                      var results = JSON.parse(d);
-                      assert.equal(results[1], 2);
+                      var vote = JSON.parse(d);
+                      assert.equal(vote[1], 2);
                       done();
                     });
                   });
@@ -249,7 +249,7 @@ describe('handlers', function (){
     });
 
     it('should return a 403 when we do not allow multiple votes from the same ip', function (done){
-      var o = { hostname: server.hostname, path: '/rest/polls', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, path: '/api/polls', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });
@@ -259,14 +259,14 @@ describe('handlers', function (){
 
           var id = d.id;
 
-          var o = { hostname: server.hostname, path: '/rest/vote/' + id, port: server.port, method: 'POST' };
+          var o = { hostname: server.hostname, path: '/api/vote/' + id, port: server.port, method: 'POST' };
 
           var req = http.request(o, function (res){
             var d = ''; res.on('data', function (c){ d += c; });
             res.on('end', function (){
               d = JSON.parse(d);
 
-              var o = { hostname: server.hostname, path: '/rest/vote/' + id, port: server.port, method: 'POST' };
+              var o = { hostname: server.hostname, path: '/api/vote/' + id, port: server.port, method: 'POST' };
 
               var req = http.request(o, function (res){
                 var d = ''; res.on('data', function (c){ d += c; });
@@ -307,7 +307,7 @@ describe('handlers', function (){
     });
 
     it('should return a 404 when the poll is not found', function (done){
-      var o = { hostname: server.hostname, path: '/rest/vote/500', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, path: '/api/vote/500', port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
         var d = ''; res.on('data', function (c){ d += c; });

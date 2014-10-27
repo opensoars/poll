@@ -1,4 +1,4 @@
-var POST_URL = '/rest/polls',
+var POST_URL = '/api/polls',
     POLL_URL = '/poll/?id='
 
 // DOM
