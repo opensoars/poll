@@ -4,26 +4,35 @@ var http = require('http');
 
 var server = require('./../../server.js');
 
+
 setTimeout(function (){
 
 describe('server', function (){
 
-  describe('#status', function (){
+  describe('#returns', function (){
+
     it('Should return status: succes', function (){
       assert.equal(server.status, 'succes');
     });
-  });
 
-  describe('#port', function (){
-    it('should return port 8372', function (){
-      assert.equal(server.port, 8372);
+    it('should return a port number', function (){
+      assert.equal(typeof server.port, 'number');
     });
+
+    it('should return a listeningAt string', function (){
+      assert.equal(typeof server.listeningAt, 'string');
+    });
+
+    it('should return a hostname string', function (){
+      assert.equal(typeof server.hostname, 'string');
+    });
+
   });
 
   describe('#body parser middleware', function (){
     it('should use the body parser middleware function (GET)', function (done){
 
-      http.get('http://localhost:' + server.port, function (res){
+      http.get(server.listeningAt, function (res){
         done();
       }).on('error', function (e){
         throw 'GET request failed!';
@@ -33,7 +42,7 @@ describe('server', function (){
 
     it('should use the body parser middleware function (POST)', function (done){
 
-      var o = { hostname: 'localhost', port: server.port, method: 'POST' };
+      var o = { hostname: server.hostname, port: server.port, method: 'POST' };
 
       var req = http.request(o, function (res){
         var isDone = false;
@@ -49,7 +58,6 @@ describe('server', function (){
       req.end();
 
     });
-
 
   });
 
