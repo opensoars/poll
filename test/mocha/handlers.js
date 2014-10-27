@@ -3,9 +3,6 @@ var assert = require('assert'),
 
 var server = require('./../../server.js');
 
-setTimeout(function (){
-
-
 describe('handlers', function (){
 
   describe('#post_polls', function (){
@@ -333,9 +330,4 @@ describe('handlers', function (){
 
 
 });
-
-
-
-
-}, 1000);
 

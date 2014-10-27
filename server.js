@@ -76,10 +76,9 @@ app.post('/rest/vote/:id', handlers.post_vote_by_id);
 app.listen(PORT);
 log('Listening at port: ' + PORT);
 
-
 module.exports = {
   status: 'succes',
-  port: PORT
+  port: PORT,
   hostname: 'localhost',
   listeningAt: 'http://localhost:' + PORT
 };

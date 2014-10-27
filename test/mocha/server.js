@@ -4,9 +4,6 @@ var http = require('http');
 
 var server = require('./../../server.js');
 
-
-setTimeout(function (){
-
 describe('server', function (){
 
   describe('#returns', function (){
@@ -62,5 +59,3 @@ describe('server', function (){
   });
 
 });
-
-}, 1000);
