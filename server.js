@@ -6,7 +6,7 @@
 var ARGV = process.argv,
     ENV = ARGV[2];
 
-var PORT = 8372;
+var PORT = 8888;
 
 
 process.DIR = __dirname;
