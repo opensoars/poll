@@ -10,7 +10,7 @@ var hTitle = document.getElementById('hTitle'),
 
 var ID = window.location.search.split('=')[1] || 0,
     POLL_URL = '/api/polls/' + ID,
-    VOTE_URL = '/api/vote/' + ID;
+    VOTE_URL = '/api/votes/' + ID;
 
 
 var FAIL_TEXT = '<p>Could not GET poll. This poll does not exist!</p>'
