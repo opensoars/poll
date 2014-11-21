@@ -32,6 +32,9 @@ hTitle.innerHTML += ' #' + ID;
 
   function handleSucces(){
     alert('Vote succesful!');
+
+    console.log(POLL);
+
   }
 
   function postVote(checks){
@@ -160,8 +163,7 @@ function startResultGetter(){
 
   function handleResults(results){
 
-    if(!POLL) return false;
-
+    if(!POLL) return;
 
     var options = POLL.options;
 
@@ -189,6 +191,7 @@ function startResultGetter(){
         bar.style.width =
           (Math.round(100 / (totalVotes / results[key])) * 2) + 'px';
     }
+    
   }
 
   function getResults(){
