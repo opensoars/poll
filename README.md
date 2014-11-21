@@ -25,9 +25,3 @@ poll
 1. Clone source
 2. `npm install`
 3. `npm run localTest`
-
-
-### Application dependencies
-* [Express.js](http://expressjs.com/)
-* [ezlog](https://github.com/opensoars/ezlog)
-* [cls](https://github.com/opensoars/cls)
