@@ -21,6 +21,12 @@ poll
 3. Browse to `http://localhost:80`
 4. Poll away!
 
+### Run tests to get build status and coverage report
+1. Clone source
+2. `npm install`
+3. `npm run localTest`
+
+
 ### Application dependencies
 * [Express.js](http://expressjs.com/)
 * [ezlog](https://github.com/opensoars/ezlog)
