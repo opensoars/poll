@@ -17,8 +17,8 @@ poll
 
 ### Use
 1. Clone source
-2. `npm run server`
-3. Browse to `http://localhost:80`
+2. Run either `node server.js` root OR run  `npm run server` from the project root.
+3. Browse to `[http://localhost:8888](http://localhost:8888)`
 4. Poll away!
 
 ### Run tests to get build status and coverage report
