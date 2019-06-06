@@ -17,9 +17,10 @@ poll
 
 ### Use
 1. `git clone https://github.com/opensoars/poll`
-2. Run either `node server.js` or `npm run server` from the project root.
-3. Browse to [http://localhost:8888](http://localhost:8888)
-4. Poll away!
+2. `npm install`
+3. Run either `node server.js` or `npm run server` from the project root.
+4. Browse to [http://localhost:5555](http://localhost:5555)
+5. Poll away!
 
 ### Run tests to get build status and coverage report
 1. `git clone https://github.com/opensoars/poll`
