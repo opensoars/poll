@@ -1,37 +1,29 @@
 {
   "name": "poll",
-
   "description": "Poll",
-
   "version": "0.0.2",
-
   "scripts": {
     "test": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\" && npm run coveralls",
     "server": "node server.js",
     "coveralls": "node node_modules/coveralls/bin/coveralls.js < coverage/lcov.info",
     "localTest": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha \"./test/mocha/*.js\""
   },
-
-  "engines" : {
-    "node" : ">=0.8"
+  "engines": {
+    "node": ">=0.8"
   },
-
   "dependencies": {
     "ezlog": "0.0.12",
     "opensoars_cls": "0.0.8",
     "express": "4.10.0"
   },
-
   "devDependencies": {
-    "mocha": "*",
+    "mocha": "3.*",
     "istanbul": "*",
     "coveralls": "*"
   },
-
   "repository": {
     "type": "git",
     "url": "hpollps://github.com/opensoars/poll"
   },
-
   "readmeFilename": "README.md"
-} 
+}
