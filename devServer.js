@@ -12,7 +12,7 @@ var PORT = 8888;
 process.DIR = __dirname;
 
 
-process.POLL_COL = require('./lib/poll_col');
+process.POLL_COL = require('./src/poll_col');
 process.POLL_TIMEOUT = 800000;
 
 
@@ -35,8 +35,8 @@ var Ezlog = require('ezlog'),
     log = new Ezlog({ p: {t: '[server]', c: 'green'} });
 
 // Request handlers
-var handlers = require('./lib/handlers'),
-    Poll = require('./lib/Poll');
+var handlers = require('./src/handlers'),
+    Poll = require('./src/Poll');
 
 
 /**

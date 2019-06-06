@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 describe('Poll', function (){
- var Poll = require('./../../lib/Poll');
+ var Poll = require('./../../src/Poll');
 
   describe('#new Poll()', function (){
 

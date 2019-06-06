@@ -3,7 +3,7 @@
  * Creates a new poll
  */
 
-var Poll = require(process.DIR + '/lib/Poll');
+var Poll = require(process.DIR + '/src/Poll');
 
 
 module.exports = function post_polls(req, res){

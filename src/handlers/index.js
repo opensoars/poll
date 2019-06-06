@@ -1,5 +1,5 @@
 /**
- * Exports all listeners from ./lib folder.
+ * Exports all listeners from ./src folder.
  *
  * Simulates:
  * module.exports {
@@ -8,9 +8,9 @@
  * }
  */
 
-var files = require('fs').readdirSync(__dirname + '/lib/');
+var files = require('fs').readdirSync(__dirname + '/src/');
 
 files.forEach(function (file){
   module.exports[file.replace(/.js/, '')]
-    = require(__dirname + '/lib/' + file);
+    = require(__dirname + '/src/' + file);
 });
