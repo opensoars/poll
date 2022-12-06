@@ -14,7 +14,7 @@
   "dependencies": {
     "ezlog": "0.0.12",
     "opensoars_cls": "0.0.8",
-    "express": "4.10.0"
+    "express": "4.17.3"
   },
   "devDependencies": {
     "mocha": "3.*",
